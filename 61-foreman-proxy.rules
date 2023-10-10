@@ -1,0 +1,2 @@
+allow perm=open exe=/usr/bin/ruby : dir=/usr/share/gems ftype=text/x-ruby trust=0
+allow perm=all exe=/usr/lib/systemd/systemd : dir=/usr/share/foreman-proxy/bin/smart-proxy ftype=text/x-ruby trust=0

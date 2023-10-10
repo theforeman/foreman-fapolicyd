@@ -1,0 +1,4 @@
+allow perm=open exe=/usr/bin/ruby : path=/etc/foreman/encryption_key.rb ftype=text/x-ruby trust=0
+allow perm=open exe=/usr/bin/ruby : dir=/usr/share/gems ftype=text/x-ruby trust=0
+allow perm=open exe=/usr/bin/ruby : dir=/usr/share/foreman ftype=text/x-java trust=0
+allow perm=open exe=/usr/bin/ruby : dir=/usr/share/foreman ftype=text/x-ruby trust=0
