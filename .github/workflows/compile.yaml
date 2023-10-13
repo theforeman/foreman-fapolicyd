@@ -1,0 +1,44 @@
+---
+name: Compile rules
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'develop'
+      - '*-stable'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        centos:
+          - "stream8"
+          - "stream9"
+    container:
+      image: quay.io/centos/centos:${{ matrix.centos }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: dnf install -y fapolicyd procps-ng
+
+      - name: Install rules
+        run: cp *.rules /etc/fapolicyd/rules.d/
+
+      - name: Reload rules
+        run: fagenrules --load
+
+      # fapolicyd can't start in a container, but the output is still useful
+      # ignore the non-zero exit-code and write output to a file to be inspected later
+      - name: Run fapolicyd with --debug
+        run: (fapolicyd --debug || true) 2>&1 | tee fapolicyd.out
+
+      - name: Check fapolicyd could load the rules
+        run: |
+          grep -q 'Loaded .* rules' fapolicyd.out
+          grep -q 'foreman' fapolicyd.out
+          grep -q 'foreman-proxy' fapolicyd.out
