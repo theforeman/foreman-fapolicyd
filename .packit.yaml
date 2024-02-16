@@ -23,6 +23,7 @@ jobs:
     trigger: pull_request
     targets:
       - rhel-8
+      - rhel-9
 
 srpm_build_deps:
   - wget
