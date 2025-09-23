@@ -1,0 +1,3 @@
+# This is needed to work around a bug in RHEL fapolicyd rules for containers
+# See https://issues.redhat.com/browse/RHEL-37912
+allow perm=any pattern=ld_so exe=/usr/bin/crun : path=/usr/lib64/libsystemd.so.0
