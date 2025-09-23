@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         centos:
-          - "stream8"
           - "stream9"
     container:
       image: quay.io/centos/centos:${{ matrix.centos }}
